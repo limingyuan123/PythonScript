@@ -1,5 +1,4 @@
 from osgeo import osr
-from pyproj import Proj, transform
 import json
 
 def coordinateTrans(arr):
@@ -49,7 +48,6 @@ def loadJson():
         with open("newMeisong.json", 'w') as write_f:
             json.dump(new_dict, write_f)
             print('suc')
-        # print(new_dict)
 
 if __name__ == '__main__':
     loadJson()
