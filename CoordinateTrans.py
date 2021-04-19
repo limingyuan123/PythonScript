@@ -1,5 +1,6 @@
 from osgeo import osr
 import json
+import sys
 
 def coordinateTrans(arr):
     source = osr.SpatialReference()
@@ -17,10 +18,22 @@ def coordinateTrans(arr):
     ctList[1] = tmp
     return ctList
 
-def loadJson():
-    with open("meisongGeoJson.json", 'r', encoding='utf8') as load_f:
-        new_dict = json.load(load_f)
+def loadJson(path1, path2, type):
+    with open(path1, 'r', encoding='utf8') as load_f:
+        new_dictTop = json.load(load_f)
+        new_dict = new_dictTop["features"]
+        
         for item in new_dict:
+            #加属性name
+            #Conduit
+            item['properties']['name'] = item['properties'][type]
+            #Junction
+            # item['properties']['name'] = item['properties']['Junction']
+            #Outfall
+            # item['properties']['name'] = item['properties']['Outfall']
+            #Subcatch
+            # item['properties']['name'] = item['properties']['Subcatch']
+
             if item['geometry']['type'] == 'Point':
                 out = coordinateTrans(item['geometry']['coordinates'])
                 item['geometry']['coordinates'] = out
@@ -45,9 +58,11 @@ def loadJson():
                 for poly in ployList:
                     newPloyList.append(coordinateTrans(poly))
                 item['geometry']['coordinates'][0] = newPloyList
-        with open("newMeisong.json", 'w') as write_f:
-            json.dump(new_dict, write_f)
+        with open(path2, 'w') as write_f:
+            json.dump(new_dictTop, write_f)
             print('suc')
+def execute(path1, path2, type):
+    loadJson(path1, path2, type)
 
 if __name__ == '__main__':
-    loadJson()
+    execute(sys.argv[1], sys.argv[2], sys.argv[3])
