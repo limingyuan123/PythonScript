@@ -61,8 +61,10 @@ def loadJson(path1, path2, type):
         with open(path2, 'w') as write_f:
             json.dump(new_dictTop, write_f)
             print('suc')
-def execute(path1, path2, type):
+def execute(path1, path2):
+    type = path1.split("#")[1].split(".")[0]
     loadJson(path1, path2, type)
 
 if __name__ == '__main__':
-    execute(sys.argv[1], sys.argv[2], sys.argv[3])
+    #InputPath OutputPath type 投影转经纬度
+    execute(sys.argv[1], sys.argv[2])
