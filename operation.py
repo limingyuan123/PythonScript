@@ -36,7 +36,7 @@ def operationCSV():
             print(line)
             arr = line.split(',')
             narr = []
-            narr.append(float(arr[1]) * 80)
+            narr.append(float(arr[1]) * 60)
             narr.append(count * 60)
             count += 1
             with open(wfile, 'a+') as f:

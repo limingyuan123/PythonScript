@@ -10,7 +10,7 @@ def plot_raster(filepath):
       img = ax.imshow(src.read(1),vmin=0,vmax=0.5,cmap=plt.cm.Blues)
       fig.colorbar(img, ax=ax)
 
-files = sorted(glob.glob('results/fenhudemriver/*.wd'))
+files = sorted(glob.glob(r'E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\results9\*.wd'))
 arr = []
 for file in files:
   with rio.open(file) as src:
@@ -22,9 +22,9 @@ fig, ax = plt.subplots(figsize=(10, 5))
 def update(i):
     im_normed = arr[i]
     ax.imshow(im_normed,vmin=0,vmax=0.5,cmap=plt.cm.Blues)
-    ax.set_title('Severn river - ' + dates[i], fontsize=20)
+    ax.set_title('fenhu area - ' + dates[i], fontsize=20)
     ax.set_axis_off()
 
 anim = FuncAnimation(fig, update, frames=range(len(arr)), interval=1000)
-anim.save('content/fenhudemriver.gif', dpi=80, writer='pillow')
+anim.save(r'E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\results9\manning.gif', dpi=80, writer='pillow')
 plt.close()
