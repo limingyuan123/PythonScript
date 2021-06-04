@@ -50,7 +50,7 @@ def readAscii():
                 raws_y = arr[1]
         else:
             break
-        count += 1   
+        count += 1
     count = 0
     for line in lines3:
         if count<2:
@@ -61,10 +61,16 @@ def readAscii():
                 raws_dem = arr[1]
         else:
             break
-        count += 1     
-    matrix_x = zeros((int(raws_x), int(cols_x)), dtype = float)
-    matrix_y = zeros((int(raws_y), int(cols_y)), dtype = float)
-    matrix_dem = zeros((int(raws_dem), int(cols_dem)), dtype = float)
+        count += 1
+    raws_x = int(raws_x)
+    cols_x = int(cols_x)
+    raws_y = int(raws_y)
+    cols_y = int(cols_y)
+    raws_dem = int(raws_dem)
+    cols_dem = int(cols_dem)
+    matrix_x = zeros((raws_x, cols_x), dtype = float)
+    matrix_y = zeros((raws_y, cols_y), dtype = float)
+    matrix_dem = zeros((raws_dem, cols_dem), dtype = float)
     count = 0
     x_row = 0
     y_row = 0
@@ -94,38 +100,40 @@ def readAscii():
         count+=1
     print('ok')
     # calculate flow vectors
-    xlocs = zeros(raws_x*cols_x+raws_y*cols_y, 1)
-    ylocs = xlocs
-    U = xlocs
-    V = xlocs
+    xlocs = zeros((raws_x*cols_x+raws_y*cols_y, 1), float)
+    ylocs = xlocs.copy()
+    U = xlocs.copy()
+    V = xlocs.copy()
 
-    for i in range(1, raws_x):
-        for j in range(1, cols_x):
-            xlocs((i-1)*cols_x + j, 1) = j-0.5
-            ylocs((i-1)*cols_x + j, 1) = i
-            U((i-1)*cols_x + j, 1) = matrix_x(i, j)
-    for i in range(1, raws_y):
-        for j in range(1, cols_y):
-            xlocs(cols_x*raws_x + (i-1)*cols_y, 1) = j
-            ylocs(cols_x*raws_x + (i-1)* cols_y, 1) = i - 0.5
-            V(cols_y*raws_x + (i-1) * cols_y + j, 1) = matrix_y(i, j)
-
-    num_flows = nonzero(U+V)
-    xlocs2 = zeros(num_flows, 1)
-    ylocs2 = xlocs2
-    U2 = xlocs2
-    V2 = xlocs2
+    for i in range(0, raws_x):
+        for j in range(0, cols_x):
+            xlocs[(i)*cols_x + j][0] = j + 0.5
+            ylocs[(i)*cols_x + j][0] = i + 1
+            U[(i)*cols_x + j][0] = matrix_x[i][j]
+    for i in range(0, raws_y):
+        for j in range(0, cols_y):
+            xlocs[cols_x*raws_x + i*cols_y + j][0] = j + 1
+            ylocs[cols_x*raws_x + i*cols_y + j][0] = i + 0.5
+            V[cols_y*raws_x + i * cols_y + j][0] = matrix_y[i][j]
+    nozero = nonzero(matrix_add(U, V, len(U), len(U[0])))
+    num_flows = len(nozero[0])
+    xlocs2 = zeros((num_flows, 1), float)
+    ylocs2 = xlocs2.copy()
+    U2 = xlocs2.copy()
+    V2 = xlocs2.copy()
     k = 1
 
-    for i in range(1, cols_x*raws_x + cols_y * raws_y):
-        if (U(i, 1) == 0) and (V(i, 1) == 0):
+    for i in range(0, cols_x*raws_x + cols_y * raws_y):
+        if (U[i][0] == 0) and (V[i][0] == 0):
             print('do nothing!')
-        else:
-            xlocs2(k, 1) = xlocs(i, 1)
-            ylocs2(k, 1) = ylocs(i, 1)
-            U2(k, 1) = U(i, 1)
-            V2(k, 1) = V(i, 1)
+        elif i<=k:
+            xlocs2[k][0] = xlocs[i][0]
+            ylocs2[k][0]  = ylocs[i][0]
+            U2[k][0]  = U[i][0]
+            V2[k][0]  = V[i][0]
             k = k+1
+        else:
+            break
 
     if k == num_flows + 1:
         print('all is ok')
@@ -137,7 +145,13 @@ def readAscii():
 
     disp('Done')
 
-        
+def matrix_add(X,Y, raw, col):
+    result = zeros((raw, col), float)
+
+    for i in range(len(X)): # 迭代输出行，矩阵当中，是由三个列表所呈现的。
+        for j in range(len(X[0])): # 迭代输出列，访问大列表当中 每个列表的第一个元素，即为列
+            result[i][j] = X[i][j]+Y[i][j] #X下标对应的数字，加上Y下标对应的数字 即为所求
+    return result
 if __name__ == '__main__':
     # draw()
     readAscii()

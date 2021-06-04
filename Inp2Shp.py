@@ -283,7 +283,11 @@ def junctionsToShp(OutputPath):
     ogr.RegisterAll()
     driver = ogr.GetDriverByName('ESRI Shapefile')
     ds = driver.CreateDataSource(OutputPath + "/" + "#Junction.shp")
-    shapLayer = ds.CreateLayer("junction", osr.SpatialReference(), ogr.wkbPoint)
+
+    srs = osr.SpatialReference()
+    srs.ImportFromEPSG(4528)
+
+    shapLayer = ds.CreateLayer("junction", srs, ogr.wkbPoint)
     fieldNode = ogr.FieldDefn("Junction", ogr.OFTString)
     fieldNode.SetWidth(15)
     shapLayer.CreateField(fieldNode)
@@ -332,7 +336,9 @@ def outfallsToShp(OutputPath):
     ogr.RegisterAll()
     driver = ogr.GetDriverByName('ESRI Shapefile')
     ds = driver.CreateDataSource(OutputPath + "/" + "#Outfall.shp")
-    shapLayer = ds.CreateLayer("outfall", osr.SpatialReference(), ogr.wkbPoint)
+    srs = osr.SpatialReference()
+    srs.ImportFromEPSG(4528)
+    shapLayer = ds.CreateLayer("outfall", srs, ogr.wkbPoint)
     fieldNode = ogr.FieldDefn("Outfall", ogr.OFTString)
     fieldNode.SetWidth(15)
     shapLayer.CreateField(fieldNode)
@@ -373,7 +379,9 @@ def conduitsToShp(OutputPath):
     ogr.RegisterAll()
     driver = ogr.GetDriverByName('ESRI Shapefile')
     ds = driver.CreateDataSource(OutputPath + "/" + "#Conduit.shp")
-    shapLayer = ds.CreateLayer("conduits", osr.SpatialReference(), ogr.wkbLineString)
+    srs = osr.SpatialReference()
+    srs.ImportFromEPSG(4528)
+    shapLayer = ds.CreateLayer("conduits", srs, ogr.wkbLineString)
     fieldConduit = ogr.FieldDefn("Conduit", ogr.OFTString)
     fieldConduit.SetWidth(15)
     shapLayer.CreateField(fieldConduit)
@@ -472,7 +480,9 @@ def subcatchmentsToShp(OutputPath):
     ogr.RegisterAll()
     driver = ogr.GetDriverByName('ESRI Shapefile')
     ds = driver.CreateDataSource(OutputPath + "/" + "#Subcatch.shp")
-    shapLayer = ds.CreateLayer("subcatchments", osr.SpatialReference(), ogr.wkbPolygon)
+    srs = osr.SpatialReference()
+    srs.ImportFromEPSG(4528)
+    shapLayer = ds.CreateLayer("subcatchments", srs, ogr.wkbPolygon)
     fieldSubcatchment = ogr.FieldDefn("Subcatch", ogr.OFTString)  # 缩写
     fieldSubcatchment.SetWidth(15)
     shapLayer.CreateField(fieldSubcatchment)
@@ -626,3 +636,4 @@ def execute(InputPath, OutputPath):
 if __name__ == '__main__':
     #InputPath OutputPath
     execute(sys.argv[1], sys.argv[2])
+    # execute(r"E:\Projects\SWMMCouplingBackEnd\uploadINP\e2d9711b-1b12-468e-9145-2748787b337b\upload_66bf67ead761493766771376fc7e1fc8.inp", r"E:\Projects\SWMMCouplingBackEnd\uploadINP\e2d9711b-1b12-468e-9145-2748787b337b")

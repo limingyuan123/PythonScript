@@ -65,6 +65,28 @@ def execute(path1, path2):
     type = path1.split("#")[1].split(".")[0]
     loadJson(path1, path2, type)
 
+def coordinate(coor1, coor2):
+    source = osr.SpatialReference()
+    source.ImportFromEPSG(4528)
+
+    target = osr.SpatialReference()
+    target.ImportFromEPSG(4326)
+
+    transform = osr.CoordinateTransformation(source, target)
+    ct = transform.TransformPoint(coor1, coor2)
+    print(ct)
+def corrdin(coor1, coor2):
+    source = osr.SpatialReference()
+    source.ImportFromEPSG(4326)
+
+    target = osr.SpatialReference()
+    target.ImportFromEPSG(102100)
+
+    transform = osr.CoordinateTransformation(source, target)
+    ct = transform.TransformPoint(coor1, coor2)
+    print(ct)
 if __name__ == '__main__':
     #InputPath OutputPath type 投影转经纬度
     execute(sys.argv[1], sys.argv[2])
+    # coordinate(3434862.323, 40580992.82)
+    # corrdin(31.032280067761373, 120.8483257733613)

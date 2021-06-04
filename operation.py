@@ -42,5 +42,32 @@ def operationCSV():
             with open(wfile, 'a+') as f:
                 str_array = '\t'.join(map(str, narr))
                 f.write(str_array + '\n')
+
+def operationRainTxt():
+    wfile = r"E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\fenhuRain_5_mm_min.txt"
+    with open(r"E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\fenhuRain_5.txt") as file:
+        count = 0
+        for line in file:
+            print(line)
+            arr = line.strip().split('\t')
+            narr = []
+            narr.append(float(arr[1]) / 5)
+            count += 1
+            with open(wfile, 'a+') as f:
+                str_array = '\t'.join(map(str, narr))
+                f.write(str_array + '\n')
+    wfile = r"E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\fenhuRain_5_mm_h.rain"
+    with open(r"E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\fenhuRain_5_mm_min.txt") as file:
+        count = 0
+        for line in file:
+            print(line)
+            arr = line.strip().split('\t')
+            narr = []
+            narr.append(float(arr[0]) * 60)
+            narr.append(count * 300)
+            count += 1
+            with open(wfile, 'a+') as f:
+                str_array = '\t'.join(map(str, narr))
+                f.write(str_array + '\n')
 if __name__ == '__main__':
-    operationCSV()
+    operationRainTxt()
