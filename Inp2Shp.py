@@ -83,13 +83,21 @@ def getInfiltration(r):
         if firstWord != ";":
             lineStr = r.readline()
             lineArray = re.split("\\s+", lineStr)
+            # meisong的格式
+            # jsonObj = {
+            #     "Subcatchment": lineArray[0],
+            #     "MaxRate": lineArray[1],
+            #     "MinRate": lineArray[2],
+            #     "Decay": lineArray[3],
+            #     "DryTime": lineArray[4],
+            #     "MaxInfil": lineArray[5],
+            # }
+            # fenhu格式
             jsonObj = {
                 "Subcatchment": lineArray[0],
-                "MaxRate": lineArray[1],
-                "MinRate": lineArray[2],
-                "Decay": lineArray[3],
-                "DryTime": lineArray[4],
-                "MaxInfil": lineArray[5],
+                "Suction": lineArray[1],
+                "Ksat": lineArray[2],
+                "IMD": lineArray[3],
             }
             Infiltration[lineArray[0]] = jsonObj
         else:
@@ -580,11 +588,16 @@ def subcatchmentsToShp(OutputPath):
         feature.SetField("PctZero", Subareas[key]["PctZero"])
         feature.SetField("RouteTo", Subareas[key]["RouteTo"])
         feature.SetField("PctRouted", Subareas[key]["PctRouted"])
-        feature.SetField("MaxRate", Infiltration[key]["MaxRate"])
-        feature.SetField("MinRate", Infiltration[key]["MinRate"])
-        feature.SetField("Decay", Infiltration[key]["Decay"])
-        feature.SetField("DryTime", Infiltration[key]["DryTime"])
-        feature.SetField("MaxInfil", Infiltration[key]["MaxInfil"])
+        # meisong格式
+        # feature.SetField("MaxRate", Infiltration[key]["MaxRate"])
+        # feature.SetField("MinRate", Infiltration[key]["MinRate"])
+        # feature.SetField("Decay", Infiltration[key]["Decay"])
+        # feature.SetField("DryTime", Infiltration[key]["DryTime"])
+        # feature.SetField("MaxInfil", Infiltration[key]["MaxInfil"])
+        # fenhu格式
+        feature.SetField("Suction", Infiltration[key]["Suction"])
+        feature.SetField("Ksat", Infiltration[key]["Ksat"])
+        feature.SetField("IMD", Infiltration[key]["IMD"])
         polygon = ogr.Geometry(ogr.wkbPolygon)
         ring = ogr.Geometry(ogr.wkbLinearRing)
         points = Polygons[key]
@@ -636,4 +649,4 @@ def execute(InputPath, OutputPath):
 if __name__ == '__main__':
     #InputPath OutputPath
     execute(sys.argv[1], sys.argv[2])
-    # execute(r"E:\Projects\SWMMCouplingBackEnd\uploadINP\e2d9711b-1b12-468e-9145-2748787b337b\upload_66bf67ead761493766771376fc7e1fc8.inp", r"E:\Projects\SWMMCouplingBackEnd\uploadINP\e2d9711b-1b12-468e-9145-2748787b337b")
+    # execute(r"E:\research\model\SWMM\SWMMData\programme\network(rainfall_pump).inp", r"E:\research\model\SWMM\SWMMData\programme\network(rainfall_pump)")

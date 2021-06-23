@@ -127,7 +127,7 @@ def readJunctions():
 # Outfalls
 # Coordinates
 def readOutfalls():
-    outfallsLayer = junctionsFile.GetLayerByIndex(0)
+    outfallsLayer = outfallsFile.GetLayerByIndex(0)
     defn = outfallsLayer.GetLayerDefn()
     feature = outfallsLayer.GetNextFeature()
     while feature is not None:
@@ -167,7 +167,7 @@ def readOutfalls():
 # Conduits
 # XSections
 def readConduits():
-    conduitsLayer = junctionsFile.GetLayerByIndex(0)
+    conduitsLayer = conduitsFile.GetLayerByIndex(0)
     defn = conduitsLayer.GetLayerDefn()
     feature = conduitsLayer.GetNextFeature()
     while feature is not None:
@@ -253,7 +253,7 @@ def readConduits():
 # Infiltration
 # Polygons
 def readSubcatchments():
-    subcatchmentsLayer = junctionsFile.GetLayerByIndex(0)
+    subcatchmentsLayer = subcatchmentsFile.GetLayerByIndex(0)
     defn = subcatchmentsLayer.GetLayerDefn()
     feature = subcatchmentsLayer.GetNextFeature()
     while feature is not None:
@@ -559,6 +559,7 @@ if junctionsFile is None:
     print("junctions shp read fail!")
 else:
     readJunctions()
+    
 outfallsFile = driver.Open(basic_url+'/outfall.shp')
 if outfallsFile is None:
     print("outfalls shp read fail!")
