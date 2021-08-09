@@ -649,4 +649,4 @@ def execute(InputPath, OutputPath):
 if __name__ == '__main__':
     #InputPath OutputPath
     execute(sys.argv[1], sys.argv[2])
-    # execute(r"E:\research\model\SWMM\SWMMData\programme\network(rainfall_pump).inp", r"E:\research\model\SWMM\SWMMData\programme\network(rainfall_pump)")
+    # execute(r"E:\research\model\SWMM\SWMMData\network(wushui2).inp", r"E:\research\model\SWMM\SWMMData\programme\wushui")
