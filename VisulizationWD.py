@@ -10,7 +10,7 @@ def plot_raster(filepath):
       img = ax.imshow(src.read(1),vmin=0,vmax=0.5,cmap=plt.cm.Blues)
       fig.colorbar(img, ax=ax)
 
-files = sorted(glob.glob(r'E:\research\model\modelCoupling\lisflood\res_clip\*.wd'))
+files = sorted(glob.glob(r'E:\Projects\SWMM_LISFLOOD_Solution\LISFLOOD_Test\res_clip_testNoBciAndDoubleCouple\*.wd'))
 arr = []
 for file in files:
   with rio.open(file) as src:
@@ -26,5 +26,5 @@ def update(i):
     ax.set_axis_off()
 
 anim = FuncAnimation(fig, update, frames=range(len(arr)), interval=1000)
-anim.save(r'E:\research\model\modelCoupling\lisflood\res\waterDepth_clip.gif', dpi=80, writer='pillow')
+anim.save(r'E:\Projects\SWMM_LISFLOOD_Solution\LISFLOOD_Test\res_clip_testNoBciAndDoubleCouple\waterDepth_clip1.gif', dpi=80, writer='pillow')
 plt.close()

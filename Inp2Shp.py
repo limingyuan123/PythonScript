@@ -319,6 +319,7 @@ def junctionsToShp(OutputPath):
     fieldAponded.SetWidth(8)
     fieldAponded.SetPrecision(5)
     shapLayer.CreateField(fieldAponded)
+
     defn = shapLayer.GetLayerDefn()
     feature = ogr.Feature(defn)
     for key in Junctions:
@@ -390,6 +391,7 @@ def conduitsToShp(OutputPath):
     srs = osr.SpatialReference()
     srs.ImportFromEPSG(4528)
     shapLayer = ds.CreateLayer("conduits", srs, ogr.wkbLineString)
+    
     fieldConduit = ogr.FieldDefn("Conduit", ogr.OFTString)
     fieldConduit.SetWidth(15)
     shapLayer.CreateField(fieldConduit)
@@ -648,5 +650,5 @@ def execute(InputPath, OutputPath):
 
 if __name__ == '__main__':
     #InputPath OutputPath
-    execute(sys.argv[1], sys.argv[2])
-    # execute(r"E:\research\model\SWMM\SWMMData\network(wushui2).inp", r"E:\research\model\SWMM\SWMMData\programme\wushui")
+    # execute(sys.argv[1], sys.argv[2])
+    execute(r"E:\research\model\SWMM\SWMMData\network(wushui2).inp", r"E:\research\model\SWMM\SWMMData\programme\wushui\test")

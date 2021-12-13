@@ -3,9 +3,9 @@ import os
 import shapefile
 input_shape = r"E:\research\Clip\wd\root_town2.shp" 
 # output_raster=r'E:\research\test.tif'
-output_raster_path=r'E:\research\testClip'
+output_raster_path=r'E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\fenhu_5year_gcgs2000\clip'
 # tif输入路径，打开文件
-input_raster_path = r"E:\research\Clip\wd\testClip"
+input_raster_path = r"E:\research\model\lisflood-fp\fenhuTestModelData\copy\test3\2021.05.19_zjg50_dem-05_river5m\fenhu_5year_gcgs2000"
 
 
 files = os.listdir(input_raster_path)
