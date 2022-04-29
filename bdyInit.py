@@ -1,7 +1,7 @@
 import os
 
-path = r'E:\research\model\modelCoupling\swmm\30_res_timeSim_9_11.txt'
-wPath = r'E:\research\model\modelCoupling\swmm\30_res_timeSim_9_11_1.bdy'
+path = r'E:\research\model\modelCoupling\文件型耦合实验\flooding_res.txt'
+wPath = r'E:\research\model\modelCoupling\文件型耦合实验\flooding_res.bdy'
 
 file = open(path)
 count = 1

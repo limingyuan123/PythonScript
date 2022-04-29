@@ -362,7 +362,7 @@ def transInp():
     gdal.SetConfigOption("SHAPE_ENCODING", "")
     ogr.RegisterAll()
     driver = ogr.GetDriverByName('ESRI Shapefile')
-    junctionsFile = driver.Open(r'E:\research\fenhuData\pipeNetwork\init_res\copy\shp\RainJunction.shp')
+    junctionsFile = driver.Open(r'E:\research\test\junction.shp')
     if junctionsFile is None:
         print("junctions shp read fail!")
     else:
@@ -410,7 +410,7 @@ def transInp():
     #     print("outfalls shp read fail!")
     # else:
     #     readOutfalls()
-    conduitsFile = driver.Open(r'E:\research\fenhuData\pipeNetwork\init_res\copy\shp\RainConduits.shp')
+    conduitsFile = driver.Open(r'E:\research\test\pipeline.shp')
     if conduitsFile is None:
         print("conduits shp read fail!")
     else:
@@ -502,7 +502,7 @@ def transInp():
     writeInpFile()
 
 def writeInpFile():
-    with open(r'E:\research\fenhuData\pipeNetwork\init_res\copy\shp\Rain.inp', "w") as f:
+    with open(r'E:\research\test\test.inp', "w") as f:
         basicContent = "[TITLE]\n" \
                        ";;Project Title/Notes\n" \
                        "\n" \

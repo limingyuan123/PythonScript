@@ -1,7 +1,7 @@
 import os
 
-path = r'E:\research\model\modelCoupling\swmm\node_corrd.txt'
-wPath = r'E:\research\model\modelCoupling\swmm\node_corrd.bci'
+path = r'E:\research\model\modelCoupling\文件型耦合实验\corr_res.txt'
+wPath = r'E:\research\model\modelCoupling\文件型耦合实验\corr_res.bci'
 
 file = open(path)
 for line in file:
